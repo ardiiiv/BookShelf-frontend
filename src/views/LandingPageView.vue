@@ -18,14 +18,14 @@ const text = reactive({
 </script>
 
 <template>
-    <div class="w-screen h-screen flex items-center">
-        <div class="w-5/6 grid grid-cols-2 mx-auto justify-center rounded-xl shadow-PrimaryShadow">
-            <div class=" flex flex-col items-center justify-center bg-gradient-to-b from-10% from-Primary via-50% via-Secondary to-90% to-[#85182A] p-6 rounded-l-xl">
+    <div class="w-screen md:h-screen h-full flex items-center py-4">
+        <div class="w-5/6 md:grid md:grid-cols-2 flex flex-col mx-auto justify-center rounded-xl shadow-PrimaryShadow">
+            <div class=" flex flex-col items-center justify-center bg-gradient-to-b from-10% from-Primary via-50% via-Secondary to-90% to-[#85182A] p-6 md:rounded-l-xl md:rounded-tr-none rounded-t-xl">
                 <div>
-                    <h1 class="font-Playfair text-white text-5xl font-semibold text-center">Book Shelf App</h1>
+                    <h1 class="font-Playfair text-white lg:text-5xl md:text-4xl text-3xl font-semibold text-center">Book Shelf App</h1>
                 </div>
                 <div class="mt-2">
-                    <p class="text-lg font-Poppins text-white text-center">
+                    <p class="md:text-lg text-base font-Poppins text-white text-center">
                         {{ formSignIn ? text.paragraf.paragrafFrist : text.paragraf.paragrafSecond }}
                     </p>
                 </div>
@@ -33,7 +33,7 @@ const text = reactive({
                     <SecondaryButton @click="formSignIn = !formSignIn" :title="formSignIn ? text.title.signUp : text.title.signIn "/>
                 </div>
             </div>
-            <div class="bg-white rounded-r-xl p-6">
+            <div class="bg-white md:rounded-r-xl rounded-b-xl p-6">
                 <FormSignIn v-if="formSignIn"/>
                 <FormSignUp v-else/>
             </div>

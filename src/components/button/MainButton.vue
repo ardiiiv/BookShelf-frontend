@@ -7,5 +7,5 @@ type: String,
 </script>
 
 <template>
-     <button :type="type" class="rounded-xl px-6 py-2 text-lg font-Poppins text-white bg-Primary hover:bg-Secondary font-medium">{{ title }}</button>
+     <button :type="type" class="rounded-xl px-6 py-2 md:text-lg text-base font-Poppins text-white bg-Primary hover:bg-Secondary font-medium">{{ title }}</button>
 </template>

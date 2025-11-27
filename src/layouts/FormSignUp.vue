@@ -12,7 +12,7 @@ const login = () => {
 <template>
     <form @submit.prevent="login()" class="p-4 ">
         <div class=" mb-6">
-            <h1 class="text-4xl font-Poppins font-semibold text-Primary">Daftar Akun Baru</h1>
+            <h1 class="lg:text-4xl md:text-3xl text-2xl font-Poppins font-semibold text-Primary">Daftar Akun Baru</h1>
             <p class="text-SlateGrey text-base">Daftar untuk mengatur, menyimpan, dan menemukan buku bacaanmu kapan saja.</p>
         </div>
         <div>
