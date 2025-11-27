@@ -4,9 +4,10 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { MdPostaddTwotone, MdMenubookTwotone, MdPeoplealtOutlined, MdAccountcircleTwotone } from "oh-vue-icons/icons/md"
+import { MdPostaddTwotone, MdMenubookTwotone, MdPeoplealtOutlined, MdAccountcircleTwotone, MdMenuRound } from "oh-vue-icons/icons/md"
 import { RiBookMarkLine } from "oh-vue-icons/icons/ri"
 import { HiHome } from "oh-vue-icons/icons/hi"
+import { BiX, BiXLg } from "oh-vue-icons/icons/bi"
 
 addIcons(
     MdPostaddTwotone,
@@ -14,7 +15,10 @@ addIcons(
      RiBookMarkLine,
      MdPeoplealtOutlined,
      HiHome,
-     MdAccountcircleTwotone
+     MdAccountcircleTwotone,
+    MdMenuRound,
+    BiX,
+    BiXLg
 )
 const app = createApp(App)
 
