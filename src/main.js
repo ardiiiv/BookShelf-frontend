@@ -8,6 +8,7 @@ import { MdPostaddTwotone, MdMenubookTwotone, MdPeoplealtOutlined, MdAccountcirc
 import { RiBookMarkLine } from "oh-vue-icons/icons/ri"
 import { HiHome } from "oh-vue-icons/icons/hi"
 import { BiX, BiXLg } from "oh-vue-icons/icons/bi"
+import { LaTrashAlt, LaUndoAltSolid, LaCheckSolid } from "oh-vue-icons/icons/la"
 
 addIcons(
     MdPostaddTwotone,
@@ -18,7 +19,10 @@ addIcons(
      MdAccountcircleTwotone,
     MdMenuRound,
     BiX,
-    BiXLg
+    BiXLg,
+    LaTrashAlt,
+    LaUndoAltSolid,
+    LaCheckSolid
 )
 const app = createApp(App)
 

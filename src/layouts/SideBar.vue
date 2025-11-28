@@ -17,10 +17,10 @@ const style = reactive({
 </script>
 
 <template>
-    <div class="md:hidden">
+    <div class="md:hidden md:static fixed ">
         <v-icon @click="isOpen()" v-if="hidden" name="md-menu-round" scale="2" fill="white"/>
     </div>
-    <header :class="hidden ? 'h-full md:flex md:flex-col hidden' : 'absolute bg-gradient-to-b from-10% from-Primary via-50% via-Secondary to-90% to-[#85182A] h-full -translate-y-6 pt-6 pr-4 flex flex-col'" >
+    <header :class="hidden ? 'h-full md:flex md:flex-col hidden' : 'fixed bg-gradient-to-b from-10% from-Primary via-50% via-Secondary to-90% to-[#85182A] h-full -translate-y-6 -translate-x-6 pt-6 pr-4 flex flex-col'" >
         <div class="md:hidden self-end">
             <v-icon @click="isClose()" name="bi-x" scale="2" fill="white"/>
         </div>

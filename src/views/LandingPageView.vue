@@ -20,7 +20,7 @@ const text = reactive({
 <template>
     <div class="w-screen md:h-screen h-full flex items-center py-4">
         <div class="w-5/6 md:grid md:grid-cols-2 flex flex-col mx-auto justify-center rounded-xl shadow-PrimaryShadow">
-            <div class=" flex flex-col items-center justify-center bg-gradient-to-b from-10% from-Primary via-50% via-Secondary to-90% to-[#85182A] p-6 md:rounded-l-xl md:rounded-tr-none rounded-t-xl">
+            <div class=" md:h-full h-72 flex flex-col items-center justify-center bg-gradient-to-b from-10% from-Primary via-50% via-Secondary to-90% to-[#85182A] p-6 md:rounded-l-xl md:rounded-tr-none rounded-t-xl">
                 <div>
                     <h1 class="font-Playfair text-white lg:text-5xl md:text-4xl text-3xl font-semibold text-center">Book Shelf App</h1>
                 </div>
