@@ -4,6 +4,7 @@ import BerandaView from '@/views/BerandaView.vue'
 import LandingPageView from '@/views/LandingPageView.vue'
 import AlreadyReadView from '@/views/AlreadyReadView.vue'
 import UnreadBookView from '@/views/UnreadBookView.vue'
+import AddBookView from '@/views/AddBookView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/BelumDibaca',
       name: 'belumDibaca',
       component: UnreadBookView,
+    },
+    {
+      path: '/TambahBuku',
+      name: 'tambahBuku',
+      component: AddBookView,
     },
   ],
 })

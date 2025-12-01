@@ -41,7 +41,7 @@ const style = reactive({
                         </li>
                         <li :class="$route.path === '/TambahBuku' ? style.styleActive : style.styleUnactive">
                             <v-icon name="md-postadd-twotone" :scale="hidden ? '1.75' : '1.5'"/>
-                            <router-link to="/TambahaBuku" >
+                            <router-link to="/TambahBuku" >
                                 Tambah Buku
                             </router-link>
                         </li>

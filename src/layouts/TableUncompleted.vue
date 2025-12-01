@@ -29,10 +29,10 @@ const props = defineProps({
                             <span class="bg-red-100 text-red-700 px-2 py-1 text-sm rounded">Belum Dibaca</span>
                         </td>
                         <td v-if="props.showAction" class="py-3 px-4 flex gap-2 justify-center">
-                            <button class="px-2 py-1 rounded-lg shadow-md">
+                            <button class="px-2 py-1 rounded-lg shadow-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
                                 <v-icon name="la-trash-alt" scale="1.6" />
                             </button>
-                            <button class="px-2 py-1 rounded-lg shadow-md">
+                            <button class="px-2 py-1 rounded-lg shadow-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
                                 <v-icon name="la-check-solid" scale="1.6" />
                             </button>
                         </td>
