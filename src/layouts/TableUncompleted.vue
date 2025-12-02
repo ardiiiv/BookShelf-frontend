@@ -1,10 +1,16 @@
 <script setup>
+import ModalConfirm from '@/components/modal/ModalConfirm.vue'
+import ModalInfo from '@/components/modal/ModalInfo.vue'
+import { ref } from 'vue'
 const props = defineProps({
     showAction:{
         type: Boolean,
         default: true,
     }
 })
+
+const showModalInfo = ref(false)
+const showModalConfirm = ref(false)
 </script>
 
 <template>
@@ -29,12 +35,18 @@ const props = defineProps({
                             <span class="bg-red-100 text-red-700 px-2 py-1 text-sm rounded">Belum Dibaca</span>
                         </td>
                         <td v-if="props.showAction" class="py-3 px-4 flex gap-2 justify-center">
-                            <button class="px-2 py-1 rounded-lg shadow-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
-                                <v-icon name="la-trash-alt" scale="1.6" />
-                            </button>
-                            <button class="px-2 py-1 rounded-lg shadow-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
+                            <button @click="showModalInfo = true" class="px-2 py-1 rounded-lg shadow-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
                                 <v-icon name="la-check-solid" scale="1.6" />
                             </button>
+                            <button @click="showModalConfirm = true" class="px-2 py-1 rounded-lg shadow-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
+                                <v-icon name="la-trash-alt" scale="1.6" />
+                            </button>
+                            <ModalInfo :show="showModalInfo" @close="showModalInfo = false">
+                                <p>Buku berhasil ditambahkan ke rak sudah dibaca.</p>
+                            </ModalInfo>
+                            <ModalConfirm :show="showModalConfirm" @close="showModalConfirm = false">
+                                <p>Apakah Anda yakin ingin menghapus buku ini?</p>
+                            </ModalConfirm>
                         </td>
                     </tr>
                 </tbody>
