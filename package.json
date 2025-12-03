@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "axios": "^1.13.2",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
