@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { authService } from "@/services/authService";
+import { authService } from "@/services/authServices.js";
 import { storage } from "@/utils/storage";
 
 export function useAuth() {

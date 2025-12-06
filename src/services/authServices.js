@@ -10,7 +10,7 @@ export const authService = {
   },
 
   updateProfile(payload) {
-    return api.put("/auth/me")
+    return api.put("/auth/me", payload)
   },
 
   getProfile() {

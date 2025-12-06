@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { bookService } from "@/services/bookService";
+import { bookService } from "@/services/bookServices.js";
 
 export function useBooks() {
   const books = ref([]);

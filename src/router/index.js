@@ -6,6 +6,7 @@ import AlreadyReadView from '@/views/AlreadyReadView.vue'
 import UnreadBookView from '@/views/UnreadBookView.vue'
 import AddBookView from '@/views/AddBookView.vue'
 import AccountView from '@/views/AccountView.vue'
+import { storage } from '@/utils/storage'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,7 @@ const router = createRouter({
       path: '/Beranda',
       name: 'beranda',
       component: BerandaView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/SudahDibaca',
@@ -47,5 +49,15 @@ const router = createRouter({
     },
   ],
 })
+
+router.beforeEach((to, from, next) => {
+  const token = storage.get("token");
+
+  if (to.meta.requiresAuth && !token) {
+    return next("/");
+  }
+
+  next();
+});
 
 export default router
