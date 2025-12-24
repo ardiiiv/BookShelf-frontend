@@ -2,6 +2,7 @@
 import profile from "../assets/image/profile.png"
 import SecondaryButton from "@/components/button/SecondaryButton.vue";
 import { reactive, ref } from "vue";
+import { useAuth } from "@/composables/useAuth";
 
 const hidden = ref(true)
 const isOpen = () => {
@@ -14,6 +15,15 @@ const style = reactive({
     styleActive: "bg-white flex items-center text-Primary p-2 gap-1 rounded-xl font-medium md:text-lg text-base ",
     styleUnactive: "flex items-center text-white p-2 gap-1 rounded-xl font-medium md:text-lg text-base "
 })
+
+
+const { logout } = useAuth();
+
+const handleLogout = async () => {
+    await logout();
+    window.location.href = "/";
+}
+
 </script>
 
 <template>
@@ -67,7 +77,7 @@ const style = reactive({
                 </nav>
             </div>
             <div class="self-center">
-                <SecondaryButton :title="`Keluar`"/>
+                <SecondaryButton @click="handleLogout" :title="`Keluar`"/>
             </div>
         </div>
         

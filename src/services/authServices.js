@@ -16,4 +16,9 @@ export const authService = {
   getProfile() {
     return api.get("/auth/me");
   },
+
+  logout() {
+  return api.post("/auth/logout");
+}
+
 };

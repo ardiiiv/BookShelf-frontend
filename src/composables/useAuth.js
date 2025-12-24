@@ -63,6 +63,24 @@ export function useAuth() {
     }
   }
 
+  // ===== Logout =====
+  async function logout() {
+    try {
+      loading.value = true;
+      error.value = null;
+
+      // notify backend
+      await authService.logout();
+    } catch (err) {
+      // error backend logout tidak fatal
+      console.warn("Logout error:", err);
+    } finally {
+      // Logout
+      storage.remove("token");
+      user.value = null;
+      loading.value = false;
+    }
+  }
   
-  return { user, loading, error, login, register, updateProfile };
+  return { user, loading, error, login, register, updateProfile, logout };
 }
