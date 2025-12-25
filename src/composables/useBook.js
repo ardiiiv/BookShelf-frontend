@@ -82,6 +82,7 @@ export function useBooks() {
       return res.data;
     } catch (err) {
       error.value = err.response?.data?.message || "Gagal memperbarui buku";
+      throw err;
     } finally {
       loading.value = false;
     }
@@ -103,6 +104,7 @@ export function useBooks() {
       return true;
     } catch (err) {
       error.value = err.response?.data?.message || "Gagal menghapus buku";
+      throw err;
     } finally {
       loading.value = false;
     }

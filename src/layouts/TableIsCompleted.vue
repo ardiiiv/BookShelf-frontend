@@ -14,6 +14,7 @@ const props = defineProps({
 const showModalInfo = ref(false)
 const showModalConfirm = ref(false)
 const bookToDelete = ref(null);
+const infoMessage = ref("")
 
 const { books, loading, error, fetchBooks, updateBook, deleteBook } = useBooks();
 
@@ -26,22 +27,51 @@ onMounted(() => {
 });
 
 async function handleReturnBook(book) {
-    await updateBook(book.id, { ...book, isRead: false });
-    showModalInfo.value = true;
-};
-
-async function handleDeleteBook(book) {
-    if (bookToDelete.value) {
-        await deleteBook(bookToDelete.value.id);
-        showModalConfirm.value = false;
-        bookToDelete.value = null
+    try {
+        await updateBook(book._id, { isRead: false });
+        infoMessage.value = "'Buku berhasil dikembalikan ke rak belum dibaca.";
+        showModalInfo.value = true;
+        fetchBooks()
+    } catch (error) {
+        console.error("error return book:", error);
+        infoMessage.value = "Gagal menambahkan di rak buku sudah belum dibaca."
     }
 };
 
+async function handleDeleteBook(book) {
+    if (!bookToDelete.value) {
+        console.error("Tidak ada buku yang dipilih untuk dihapus");
+        return
+    }
+
+    try {
+        const bookId = bookToDelete.value._id;
+
+        console.log("Menghapus buku dengan ID:", bookId);
+        
+        await deleteBook(bookId);
+        infoMessage.value = 'Buku berhasil dihapus.';
+        showModalConfirm.value = false;
+        bookToDelete.value = null;
+        await fetchBooks();
+    } catch (error) {
+        console.error('Error saat menghapus:', error);
+        infoMessage.value = 'Gagal menghapus buku.';
+        showModalConfirm.value = false;
+        bookToDelete.value = null;
+    }
+}
 function confirmDelete(book) {
+    console.log("Buku yang akan dihapus:", book);
     bookToDelete.value = book
     showModalConfirm.value = true
 }
+
+function handleCancelDelete() {
+    showModalConfirm.value = false
+    bookToDelete.value = null
+}
+
 </script>
 
 <template>
@@ -94,8 +124,8 @@ function confirmDelete(book) {
         <ModalInfo :show="showModalInfo" @close="showModalInfo = false">
             <p>Buku berhasil dikembalikan ke rak belum dibaca.</p>
         </ModalInfo>
-        <ModalConfirm :show="showModalConfirm" @close="showModalConfirm = false" @confirm="handleDeleteBook">
-            <p>Apakah Anda yakin ingin menghapus buku ini?</p>
+        <ModalConfirm :show="showModalConfirm" @close="handleCancelDelete" @confirm="handleDeleteBook">
+            <p>Apakah Anda yakin ingin menghapus buku ini "{{ bookToDelete?.title }}"?</p>
         </ModalConfirm>
     </div>
 </template>

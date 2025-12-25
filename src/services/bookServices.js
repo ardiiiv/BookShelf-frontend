@@ -14,7 +14,7 @@ export const bookService = {
   },
 
   updateBook(id, payload) {
-    return api.put(`/books/${id}`, payload);
+    return api.patch(`/books/${id}`, payload);
   },
 
   deleteBook(id) {

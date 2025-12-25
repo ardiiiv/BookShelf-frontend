@@ -14,6 +14,7 @@ const props = defineProps({
 const showModalInfo = ref(false)
 const showModalConfirm = ref(false)
 const bookToDelete = ref(null);
+const infoMessage = ref("")
 
 const { books, loading, error, fetchBooks, updateBook, deleteBook } = useBooks();
 
@@ -26,21 +27,49 @@ onMounted(() => {
 });
 
 async function handleCompleteBook(book) {
-    await updateBook(book.id, { ...book, isRead: true });
-    showModalInfo.value = true;
+    try {
+        await updateBook(book._id, { isRead: true });
+        infoMessage.value = 'Buku berhasil dikembalikan ke rak sudah dibaca.';
+        showModalInfo.value = true;
+        fetchBooks()
+    } catch (error) {
+        console.error("error complete book :", error);
+        infoMessage.value = "Gagal menambahkan di rak buku sudah selesai dibaca.";
+        showModalInfo.value = true;
+    }
 };
 
-async function handleDeleteBook(book) {
-    if (bookToDelete.value) {
-        await deleteBook(bookToDelete.value.id);
+async function handleDeleteBook() {
+    if (!bookToDelete.value) {
+        console.error("Tidak ada buku yang dipilih untuk dihapus");
+        return
+    }
+
+    try {
+        const bookId = bookToDelete.value._id;
+
+        await deleteBook(bookId);
+
+        infoMessage.value = 'Buku berhasil dihapus.';
         showModalConfirm.value = false;
-        bookToDelete.value = null
+        bookToDelete.value = null;
+        await fetchBooks();
+    } catch (error) {
+        console.error('Error saat menghapus:', error);
+        infoMessage.value = 'Gagal menghapus buku.';
+        showModalConfirm.value = false;
+        bookToDelete.value = null;
     }
 };
 
 function confirmDelete(book) {
     bookToDelete.value = book
     showModalConfirm.value = true
+}
+
+function handleCancelDelete() {
+    showModalConfirm.value = false
+    bookToDelete.value = null
 }
 </script>
 
@@ -84,7 +113,7 @@ function confirmDelete(book) {
                     </tr>
                     <!-- Empty state -->
                     <tr v-if="readBooks.length === 0">
-                        <td :colspan="props.showActions ? 5 : 4" class="py-8 text-gray-500">
+                        <td :colspan="props.showAction ? 5 : 4" class="py-8 text-gray-500">
                             Tidak ada buku yang sudah dibaca
                         </td>
                     </tr>
@@ -94,8 +123,8 @@ function confirmDelete(book) {
         <ModalInfo :show="showModalInfo" @close="showModalInfo = false">
             <p>Buku berhasil ditambahkan ke rak sudah dibaca.</p>
         </ModalInfo>
-        <ModalConfirm :show="showModalConfirm" @close="showModalConfirm = false" @confirm="handleCompleteBook">
-            <p>Apakah Anda yakin ingin menghapus buku ini?</p>
+        <ModalConfirm :show="showModalConfirm" @close="handleCancelDelete" @confirm="handleDeleteBook">
+            <p>Apakah Anda yakin ingin menghapus buku "{{ bookToDelete?.title }}"?</p>
         </ModalConfirm>
     </div>
 </template>
