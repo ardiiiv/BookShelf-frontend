@@ -15,6 +15,7 @@ export const useAuthStore = defineStore("auth", {
   },
 
   actions: {
+    // ===== LOGIN =====
     async login(payload) {
       try {
         this.loading = true;
@@ -22,13 +23,11 @@ export const useAuthStore = defineStore("auth", {
 
         const res = await authService.login(payload);
 
-        // simpan data di state
-        this.user = res.user;
-        this.token = res.token;
+        this.user = res.data.user;
+        this.token = res.data.token;
 
-        // simpan juga ke localStorage
-        storage.set("user", res.user);
-        storage.set("token", res.token);
+        storage.set("user", this.user);
+        storage.set("token", this.token);
 
         return true;
       } catch (err) {
@@ -39,11 +38,83 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    logout() {
-      this.user = null;
-      this.token = null;
-      storage.remove("user");
-      storage.remove("token");
-    }
-  }
+    // ===== REGISTER =====
+    async register(payload) {
+      try {
+        this.loading = true;
+        this.error = null;
+
+        const res = await authService.register(payload);
+
+        this.user = res.data.user;
+        this.token = res.data.token;
+
+        storage.set("user", this.user);
+        storage.set("token", this.token);
+
+        return true;
+      } catch (err) {
+        this.error = err.response?.data?.message || "Register gagal";
+        return false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    // ===== GET PROFILE =====
+    async getProfile() {
+      try {
+        this.loading = true;
+        this.error = null;
+
+        const res = await authService.getProfile();
+
+        this.user = res.data.user;
+        storage.set("user", this.user);
+
+        return this.user;
+      } catch (err) {
+        // token invalid / expired
+        this.logout();
+        this.error =
+          err.response?.data?.message || "Gagal mengambil profil";
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    // ===== UPDATE PROFILE =====
+    async updateProfile(payload) {
+      try {
+        this.loading = true;
+        this.error = null;
+
+        const res = await authService.updateProfile(payload);
+
+        this.user = res.data.user;
+        storage.set("user", this.user);
+
+        return true;
+      } catch (err) {
+        this.error =
+          err.response?.data?.message || "Update profil gagal";
+        return false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    // ===== LOGOUT =====
+    async logout() {
+      try {
+        await authService.logout();
+      } catch (_) {
+      } finally {
+        this.user = null;
+        this.token = null;
+        storage.remove("user");
+        storage.remove("token");
+      }
+    },
+  },
 });
