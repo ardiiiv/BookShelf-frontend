@@ -3,6 +3,16 @@ import SideBar from '@/layouts/SideBar.vue';
 import InputField from '@/components/input/InputField.vue';
 import MainButton from '@/components/button/MainButton.vue';
 import profile from "../assets/image/profile.png"
+import { computed, onMounted, } from 'vue';
+import { useAuth } from '@/composables/useAuth';
+
+const { getProfile, user } = useAuth();
+const username = computed(() => user.value?.username);
+const email = computed(() => user.value?.email);
+const password = computed(() => user.value?.password);
+onMounted(() => {
+    getProfile();
+});
 
 </script>
 
@@ -19,9 +29,9 @@ import profile from "../assets/image/profile.png"
                     <div class="p-2 self-center">
                         <img :src="profile" alt="profile" class="rounded-full w-44 h-44">
                     </div>
-                    <InputField :title="`Username`"/>
-                    <InputField :title="`Email`"/>
-                    <InputField :title="`Password`" :type="`password`"/>
+                    <InputField :title="`Username`" v-model="username"/>
+                    <InputField :title="`Email`" v-model="email" />
+                    <InputField :title="`Password`" :type="`password`" v-model="password"/>
                     <div class="self-end">
                         <MainButton :title="`Edit Akun`" :type="`button`"/>
                     </div>

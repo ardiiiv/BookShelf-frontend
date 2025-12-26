@@ -1,7 +1,7 @@
 <script setup>
 import profile from "../assets/image/profile.png"
 import SecondaryButton from "@/components/button/SecondaryButton.vue";
-import { reactive, ref } from "vue";
+import { reactive, ref, computed, onMounted } from "vue";
 import { useAuth } from "@/composables/useAuth";
 
 const hidden = ref(true)
@@ -17,7 +17,13 @@ const style = reactive({
 })
 
 
-const { logout } = useAuth();
+const { logout, getProfile, user } = useAuth();
+const email = computed(() => user.value?.email);
+const username = computed(() => user.value?.username);
+
+onMounted(() => {
+    getProfile();
+});
 
 const handleLogout = async () => {
     await logout();
@@ -36,10 +42,12 @@ const handleLogout = async () => {
         </div>
         <div class="flex flex-col justify-between md:h-full h-5/6">
             <div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center gap-4">
                     <img :src="profile" alt="profile" class="rounded-full lg:w-24 lg:h-24 md:w-16 md:h-16 h-14 w-14">
-                    <h2 class="lg:text-3xl md:text-xl text-lg text-white font-Poppins">Username</h2>
-                    <p class="md:text-lg text-base text-white font-Poppins">email</p>
+                    <div class="text-center">
+                        <h2 class="lg:text-3xl md:text-xl text-lg text-white font-Poppins">{{ username }}</h2>
+                        <p class="md:text-sm text-xs text-white font-Poppins">{{ email }}</p>
+                    </div>
                 </div>
                 <nav class="mt-6">
                     <ul class="flex flex-col gap-4">

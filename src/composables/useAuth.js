@@ -81,6 +81,26 @@ export function useAuth() {
       loading.value = false;
     }
   }
+
+  async function getProfile() {
+    try {
+      loading.value = true;
+      error.value = null;
+
+      const res = await authService.getProfile();
+
+      user.value = res.data.user;
+      return res.data;
+    } catch (err) {
+      // token invalid / expired
+      storage.remove("token");
+      user.value = null;
+
+      error.value = err.response?.data?.message || "Gagal mengambil profil";
+    } finally {
+      loading.value = false;
+    }
+  }
   
-  return { user, loading, error, login, register, updateProfile, logout };
+  return { user, loading, error, login, register, updateProfile, logout, getProfile };
 }
