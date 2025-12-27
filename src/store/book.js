@@ -18,7 +18,7 @@ export const useBookStore = defineStore("book", {
   getters: {
     hasBooks: (state) => state.books.length > 0,
     readBook: (state) => state.books.filter(book => book.isRead === true),
-    UnReadBook: (state) => state.books.filter(book => !book.isRead === false),
+    UnReadBook: (state) => state.books.filter(book => book.isRead === false),
   },
 
   

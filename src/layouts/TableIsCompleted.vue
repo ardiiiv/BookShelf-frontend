@@ -18,7 +18,7 @@ const bookToDelete = ref(null);
 const bookStore = useBookStore();
 onMounted(() => bookStore.fetchBooks());
 
-const unReadBooks = computed(() => bookStore.UnReadBook);
+const readBooks =  computed(() => bookStore.readBook);
 
 const handleUnComplete = async (book) => {
     await bookStore.updateBook(book._id, {isRead: false});
@@ -65,7 +65,7 @@ const handDelete = async () => {
                     </tr>
                 </thead>
                 <tbody class="divide-y text-center font-medium">
-                    <tr v-for="(book, index) in unReadBooks" :key="book.id">
+                    <tr v-for="(book, index) in readBooks" :key="book.id">
                         <td class="py-3 px-4">{{ index + 1 }}</td>
                         <td class="py-3 px-4">{{ book.title }}</td>
                         <td class="py-3 px-4">{{ book.author }}</td>
@@ -83,7 +83,7 @@ const handDelete = async () => {
                         </td>
                     </tr>
                     <!-- Empty state -->
-                    <tr v-if="unReadBooks.length === 0">
+                    <tr v-if="readBooks.length === 0">
                         <td :colspan="props.showActions ? 5 : 4" class="py-8 text-gray-500">
                             Tidak ada buku yang sudah dibaca
                         </td>
